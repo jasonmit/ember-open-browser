@@ -24,8 +24,13 @@ module.exports = {
 
   serverMiddleware({ options }) {
     if (options.watcher.serving && process.env.BROWSER !== 'none' && !options.noBrowser) {
-      const baseURL = options.rootURL === '' ? '/' : cleanBaseURL(options.rootURL || options.baseURL);
-      const url = `http${options.ssl ? 's' : ''}://${options.host || 'localhost'}:${options.port}${baseURL}`;
+      let url = options['open-browser-uri'];
+
+      if (!url) {
+        const baseURL = options.rootURL === '' ? '/' : cleanBaseURL(options.rootURL || options.baseURL);
+        url = `http${options.ssl ? 's' : ''}://${options.host || 'localhost'}:${options.port}${baseURL}`;
+      }
+
       options.watcher.watcher.once('change', () => opn(url, this._browser));
     }
   }
