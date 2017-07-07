@@ -1,6 +1,6 @@
 {
   "name": "ember-open-browser",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Opens ember-cli app in system's default browser after ember serve.",
   "keywords": [
     "ember-addon"
