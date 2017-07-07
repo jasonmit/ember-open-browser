@@ -12,7 +12,7 @@ A thin addon that opens an ember-cli application using the systems default web b
 
 ## Disabling addon
 
-Setting an the `BROWSER` environment variable to `none` will disable the addon.
+Setting the `BROWSER` environment variable to `none` will disable the addon.
 Example: `BROWSER=none ember s`
 
 A more persistent method of disabling ember-open-browser is adding `"noBrowser": true` to `.ember-cli`
