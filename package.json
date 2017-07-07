@@ -10,7 +10,7 @@
     "name": "Jason Mitchell",
     "email": "jason.mitchell.w@gmail.com"
   },
-  "repository": "",
+  "repository": "git@github.com:jasonmit/ember-open-browser.git",
   "scripts": {},
   "dependencies": {
     "clean-base-url": "^1.0.0",
