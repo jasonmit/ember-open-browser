@@ -1,8 +1,6 @@
 # ember-open-browser
 
-A thin addon that opens an ember-cli application using the systems default web browser after a successful build via `ember serve`.
-
-Inspired by `create-react-app`.
+A thin addon that opens an ember-cli application using the systems default web browser after a successful build via `ember serve`.  Inspired by `create-react-app`.
 
 ## Installation
 
