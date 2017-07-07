@@ -24,14 +24,15 @@ module.exports = {
 
   serverMiddleware({ options }) {
     if (options.watcher.serving && process.env.BROWSER !== 'none' && !options.noBrowser) {
-      let url = options['open-browser-uri'];
+      let uri = options['open-browser-uri'];
 
-      if (!url) {
+      if (!uri) {
+        /* same logic that ember-cli uses internally to derive the uri */
         const baseURL = options.rootURL === '' ? '/' : cleanBaseURL(options.rootURL || options.baseURL);
-        url = `http${options.ssl ? 's' : ''}://${options.host || 'localhost'}:${options.port}${baseURL}`;
+        uri = `http${options.ssl ? 's' : ''}://${options.host || 'localhost'}:${options.port}${baseURL}`;
       }
 
-      options.watcher.watcher.once('change', () => opn(url, this._browser));
+      options.watcher.watcher.once('change', () => opn(uri, this._browser));
     }
   }
 };
