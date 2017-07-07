@@ -14,7 +14,6 @@
   "scripts": {},
   "dependencies": {
     "clean-base-url": "^1.0.0",
-    "ember-cli-babel": "^6.0.0",
     "opn": "^5.1.0"
   },
   "engines": {
