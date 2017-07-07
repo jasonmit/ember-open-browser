@@ -23,6 +23,7 @@ module.exports = {
 
   init() {
     this._super.init && this._super.init.apply(this, arguments);
+
     const _super = Watcher.prototype.didChange;
     const addon = this;
 
@@ -30,7 +31,7 @@ module.exports = {
       const ret = _super.apply(this, arguments);
       const { options } = this;
 
-      if (this.serving && !addon.hasOpened && !options.noBrowser) {
+      if (this.serving && !addon.hasOpened && (!options.noBrowser && process.env.BROWSER !== 'none')) {
         const baseURL = options.rootURL === '' ? '/' : cleanBaseURL(options.rootURL || options.baseURL);
         const url = `http${options.ssl ? 's' : ''}://${options.host || 'localhost'}:${options.port}${baseURL}`;
         opn(url, addon.detectBrowser());
@@ -38,6 +39,6 @@ module.exports = {
       }
 
       return ret;
-    }
+    };
   }
 };
