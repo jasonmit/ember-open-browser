@@ -1,26 +1,20 @@
 # ember-open-browser
 
-This README outlines the details of collaborating on this Ember addon.
+Opens your ember-cli application in the systems default browser during `ember serve`.
+
+Inspired by `create-react-app`.
 
 ## Installation
 
-* `git clone <repository-url>` this repository
-* `cd ember-open-browser`
-* `npm install`
+* `ember install ember-open-browser`
 
-## Running
+## Overriding Browser
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+`BROWSER=firefox ember s`
 
-## Running Tests
+## Disabling addon
 
-* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
+Setting an the `BROWSER` environment variable to `none` will disable the addon.
+Example: `BROWSER=none ember s`
 
-## Building
-
-* `ember build`
-
-For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
+A more persistent method of disabling ember-open-browser is adding `"noBrowser": true` to `.ember-cli`
