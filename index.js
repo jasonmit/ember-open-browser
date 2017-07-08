@@ -21,16 +21,16 @@ module.exports = {
 
     return {};
   },
+  
+  createUri(options) {
+    const baseURL = options.rootURL === '' ? '/' : cleanBaseURL(options.rootURL || options.baseURL);
+    
+    return `http${options.ssl ? 's' : ''}://${options.host || 'localhost'}:${options.port}${baseURL}`;
+  },
 
   serverMiddleware({ options }) {
     if (options.watcher.serving && process.env.BROWSER !== 'none' && !options.noBrowser) {
-      let uri = options['open-browser-uri'];
-
-      if (!uri) {
-        /* same logic that ember-cli uses internally to derive the uri */
-        const baseURL = options.rootURL === '' ? '/' : cleanBaseURL(options.rootURL || options.baseURL);
-        uri = `http${options.ssl ? 's' : ''}://${options.host || 'localhost'}:${options.port}${baseURL}`;
-      }
+      const uri = options['open-browser-uri'] || this.createUri(options);
 
       options.watcher.watcher.once('change', () => opn(uri, this._browser));
     }
