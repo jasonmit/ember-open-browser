@@ -10,13 +10,7 @@ module.exports = {
   },
 
   detectBrowser() {
-    if (process.env.BROWSER) {
-      return {
-        app:  process.env.BROWSER
-      };
-    }
-
-    return {};
+    return process.env.BROWSER;
   },
   
   createUri(options) {
@@ -26,10 +20,11 @@ module.exports = {
   },
 
   serverMiddleware({ options }) {
-    if (options.watcher.serving && process.env.BROWSER !== 'none' && !options.noBrowser) {
+    if (options.watcher.serving && this._browser !== 'none' && !options.noBrowser) {
       const uri = options['open-browser-uri'] || this.createUri(options);
+      const opnOptions = this._browser ? { app: this._browser } : {};
 
-      options.watcher.watcher.once('change', () => opn(uri, this._browser));
+      options.watcher.watcher.once('change', () => opn(uri, opnOptions));
     }
   }
 };
