@@ -1,5 +1,5 @@
-var opn = require('opn');
-var cleanBaseURL = require('clean-base-url');
+const opn = require('opn');
+const cleanBaseURL = require('clean-base-url');
 
 module.exports = {
   name: 'ember-open-browser',
@@ -14,17 +14,17 @@ module.exports = {
   },
 
   createUri(options) {
-    var baseURL = options.rootURL === '' ? '/' : cleanBaseURL(options.rootURL || options.baseURL);
+    let baseURL = options.rootURL === '' ? '/' : cleanBaseURL(options.rootURL || options.baseURL);
 
     return `http${options.ssl ? 's' : ''}://${options.host || 'localhost'}:${options.port}${baseURL}`;
   },
 
   serverMiddleware(config) {
-    var options = config.options;
+    let options = config.options;
 
     if (options.watcher.serving && this._browser !== 'none' && !options.noBrowser) {
-      var uri = options['open-browser-uri'] || this.createUri(options);
-      var opnOptions = this._browser ? { app: this._browser } : {};
+      let uri = options['open-browser-uri'] || this.createUri(options);
+      let opnOptions = this._browser ? { app: this._browser } : {};
 
       options.watcher.watcher.once('change', () => opn(uri, opnOptions));
     }
