@@ -14,7 +14,8 @@
   "scripts": {},
   "dependencies": {
     "clean-base-url": "^1.0.0",
-    "opn": "^5.1.0"
+    "opn": "^5.1.0",
+    "react-dev-utils": "^3.0.2"
   },
   "engines": {
     "node": ">= 4"

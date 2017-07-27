@@ -2,6 +2,7 @@
 
 const opn = require('opn');
 const cleanBaseURL = require('clean-base-url');
+const openBrowser = require('react-dev-utils/openBrowser');
 
 module.exports = {
   name: 'ember-open-browser',
@@ -26,9 +27,8 @@ module.exports = {
 
     if (options.watcher.serving && this._browser !== 'none' && !options.noBrowser) {
       let uri = options['open-browser-uri'] || this.createUri(options);
-      let opnOptions = this._browser ? { app: this._browser } : {};
 
-      options.watcher.watcher.once('change', () => opn(uri, opnOptions));
+      options.watcher.watcher.once('change', () => openBrowser(uri));
     }
   }
 };
