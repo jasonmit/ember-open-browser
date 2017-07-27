@@ -1,6 +1,5 @@
 'use strict';
 
-const opn = require('opn');
 const cleanBaseURL = require('clean-base-url');
 const openBrowser = require('react-dev-utils/openBrowser');
 
