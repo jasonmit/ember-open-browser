@@ -1,7 +1,7 @@
 'use strict';
 
 const cleanBaseURL = require('clean-base-url');
-const openBrowser = require('./openBrowser');
+const open = require('./open-browser');
 
 module.exports = {
   name: 'ember-open-browser',
@@ -27,7 +27,11 @@ module.exports = {
     if (options.watcher.serving && this._browser !== 'none' && !options.noBrowser) {
       let uri = options['open-browser-uri'] || this.createUri(options);
 
-      options.watcher.watcher.once('change', () => openBrowser(uri));
+      options.watcher.watcher.once('change', () =>
+        open(uri, {
+          ui: this.ui
+        })
+      );
     }
   }
 };
