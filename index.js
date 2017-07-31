@@ -1,7 +1,7 @@
 'use strict';
 
 const cleanBaseURL = require('clean-base-url');
-const openBrowser = require('react-dev-utils/openBrowser');
+const openBrowser = require('./openBrowser');
 
 module.exports = {
   name: 'ember-open-browser',

@@ -13,8 +13,10 @@
   "repository": "git@github.com:jasonmit/ember-open-browser.git",
   "scripts": {},
   "dependencies": {
+    "chalk": "^2.0.1",
     "clean-base-url": "^1.0.0",
-    "react-dev-utils": "^3.0.2"
+    "cross-spawn": "^5.1.0",
+    "opn": "^5.1.0"
   },
   "engines": {
     "node": ">= 4"
