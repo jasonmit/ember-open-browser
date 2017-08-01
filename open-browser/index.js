@@ -46,7 +46,9 @@ function getBrowserEnv() {
 
 function executeNodeScript(scriptPath, url, options) {
   const extraArgs = process.argv.slice(2);
-  const child = spawn('node', [scriptPath, ...extraArgs, url], {
+  const args = [scriptPath].concat(extraArgs, url);
+
+  const child = spawn('node', args, {
     stdio: 'inherit'
   });
 
@@ -110,26 +112,26 @@ function startBrowserProcess(browser, url, options) {
  * true if it opened a browser or ran a node.js script, otherwise false.
  */
 function openBrowser(url, optionalOptions) {
-  const { action, value } = getBrowserEnv();
+  const env = getBrowserEnv();
   const options = Object.assign(
     {
       ui: {
         writeLine() {
-          return console.log(...arguments);
+          return console.log.apply(console, arguments);
         }
       }
     },
     optionalOptions
   );
 
-  switch (action) {
+  switch (env.action) {
     case Actions.NONE:
       // Special case: BROWSER="none" will prevent opening completely.
       return false;
     case Actions.SCRIPT:
-      return executeNodeScript(value, url, options);
+      return executeNodeScript(env.value, url, options);
     case Actions.BROWSER:
-      return startBrowserProcess(value, url, options);
+      return startBrowserProcess(env.value, url, options);
     default:
       throw new Error('Not implemented.');
   }
