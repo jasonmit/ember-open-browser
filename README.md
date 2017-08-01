@@ -37,3 +37,9 @@ A more persistent method of disabling ember-open-browser is adding `"noBrowser":
 
 [npm]: https://www.npmjs.org/package/ember-open-browser
 [npm-badge]: https://img.shields.io/npm/v/ember-open-browser.svg?style=flat-square
+
+# Licensing
+
+Parts of the codebase are licensed under MIT and other parts under BSD.
+See [LICENSE.md](/LICENSE.md)
+See [open-browser/LICENSE.md](open-browser/LICENSE.md)
