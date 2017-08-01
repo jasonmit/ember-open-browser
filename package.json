@@ -1,8 +1,10 @@
 {
   "name": "ember-open-browser",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Opens ember-cli app in system's default browser after ember serve.",
-  "keywords": ["ember-addon"],
+  "keywords": [
+    "ember-addon"
+  ],
   "license": "MIT",
   "author": {
     "name": "Jason Mitchell",
