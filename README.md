@@ -2,7 +2,9 @@
 
 [![npm Version][npm-badge]][npm]
 
-A tiny addon that opens an ember-cli application, using the systems default web browser, after a initial build via `ember serve`.  The addon was inspired by `create-react-app` and parts have been lifted directly from `create-react-app` - such as the ability to reuse opened tabs on OSX ([licensed separately under BSD](https://github.com/jasonmit/ember-open-browser/blob/master/open-browser/LICENSE.md)).
+A tiny addon that opens an ember-cli application, using the systems default web browser, after a initial build via `ember serve`.
+
+The addon is heavily inspired by `create-react-app` and parts have been lifted from `create-react-app` - such as the ability to reuse opened tabs on OSX ([licensed separately under BSD](https://github.com/jasonmit/ember-open-browser/blob/master/open-browser/LICENSE.md)).
 
 ## Installation
 
