@@ -41,5 +41,7 @@ A more persistent method of disabling ember-open-browser is adding `"noBrowser":
 # Licensing
 
 Parts of the codebase are licensed under MIT and other parts under BSD.
+
 See [LICENSE.md](/LICENSE.md)
+
 See [open-browser/LICENSE.md](open-browser/LICENSE.md)
