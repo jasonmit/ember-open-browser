@@ -15,19 +15,26 @@ module.exports = {
     return process.env.BROWSER;
   },
 
-  createUri(options) {
-    let baseURL = options.rootURL === '' ? '/' : cleanBaseURL(options.rootURL || options.baseURL);
+  createUri(opts) {
+    let baseURL =
+      opts.rootURL === '' ? '/' : cleanBaseURL(opts.rootURL || opts.baseURL);
 
-    return `http${options.ssl ? 's' : ''}://${options.host || 'localhost'}:${options.port}${baseURL}`;
+    return `http${opts.ssl ? 's' : ''}://${opts.host || 'localhost'}:${
+      opts.port
+    }${baseURL}`;
   },
 
   serverMiddleware(config) {
-    let options = config.options;
+    let opts = config.options || {};
 
-    if (options.watcher.serving && this._browser !== 'none' && !options.noBrowser) {
-      let uri = options['open-browser-uri'] || this.createUri(options);
+    if (opts.noBrowser || this._browser === 'none') {
+      return;
+    }
 
-      options.watcher.watcher.once('change', () =>
+    if (opts.watcher && opts.watcher.serving) {
+      let uri = opts['open-browser-uri'] || this.createUri(opts);
+
+      opts.watcher.watcher.once('change', () =>
         open(uri, {
           ui: this.ui
         })

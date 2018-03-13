@@ -2,17 +2,21 @@
 
 [![npm Version][npm-badge]][npm]
 
-A tiny addon that opens an ember-cli application, using the systems default web browser, after a initial build via `ember serve`.
+A small addon that opens an ember-cli application, using the systems default web browser, after an initial build via `ember s`.
 
-The addon is heavily inspired by `create-react-app` and parts have been lifted from `create-react-app` - such as the ability to reuse opened tabs on OSX ([licensed separately under BSD](https://github.com/jasonmit/ember-open-browser/blob/master/open-browser/LICENSE.md)).
+This is only made possible by prior work within `create-react-app`.
 
 ## Installation
 
 * `ember install ember-open-browser`
 
-## Overriding Browser
+## Overriding Default Browser
 
+Open browser using firefox instead of the system default:
 `BROWSER=firefox ember s`
+
+Temporarily disable addon:
+`BROWSER=none ember s`
 
 ## Overriding the URI
 
@@ -24,7 +28,7 @@ This can be defined within `.ember-cli` within your project root.
 
 ```json
 {
-  "open-browser-uri": "https://www.foobarbaz.com"
+  "open-browser-uri": "https://google.local"
 }
 ```
 
@@ -40,8 +44,7 @@ A more persistent method of disabling ember-open-browser is adding `"noBrowser":
 
 # Licensing
 
-Parts of the codebase are licensed under MIT and other parts under BSD.
+MIT License
 
 See [LICENSE.md](/LICENSE.md)
-
 See [open-browser/LICENSE.md](open-browser/LICENSE.md)

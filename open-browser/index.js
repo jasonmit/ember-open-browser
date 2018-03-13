@@ -1,18 +1,16 @@
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
- * All rights reserved.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 'use strict';
 
-const execSync = require('child_process').execSync;
-const spawn = require('cross-spawn');
-const chalk = require('chalk');
 const opn = require('opn');
+const chalk = require('chalk');
+const spawn = require('cross-spawn');
+const execSync = require('child_process').execSync;
 
 // https://github.com/sindresorhus/opn#app
 const OSX_CHROME = 'google chrome';
@@ -20,7 +18,7 @@ const OSX_CHROME = 'google chrome';
 const Actions = Object.freeze({
   NONE: 0,
   BROWSER: 1,
-  SCRIPT: 2
+  SCRIPT: 2,
 });
 
 function getBrowserEnv() {
@@ -29,7 +27,6 @@ function getBrowserEnv() {
   // See https://github.com/sindresorhus/opn#app for documentation.
   const value = process.env.BROWSER;
   let action;
-
   if (!value) {
     // Default.
     action = Actions.BROWSER;
@@ -40,51 +37,50 @@ function getBrowserEnv() {
   } else {
     action = Actions.BROWSER;
   }
-
   return { action, value };
 }
 
-function executeNodeScript(scriptPath, url, options) {
+function executeNodeScript(scriptPath, url) {
   const extraArgs = process.argv.slice(2);
-  const args = [scriptPath].concat(extraArgs, url);
-
-  const child = spawn('node', args, {
-    stdio: 'inherit'
+  const child = spawn('node', [scriptPath, ...extraArgs, url], {
+    stdio: 'inherit',
   });
-
   child.on('close', code => {
     if (code !== 0) {
-      options.ui.writeLine();
-      options.ui.writeLine(chalk.red('The script specified as BROWSER environment variable failed.'));
-      options.ui.writeLine(chalk.cyan(scriptPath) + ' exited with code ' + code + '.');
-      options.ui.writeLine();
+      console.log();
+      console.log(
+        chalk.red(
+          'The script specified as BROWSER environment variable failed.'
+        )
+      );
+      console.log(chalk.cyan(scriptPath) + ' exited with code ' + code + '.');
+      console.log();
       return;
     }
   });
-
   return true;
 }
 
-function startBrowserProcess(browser, url, options) {
+function startBrowserProcess(browser, url) {
   // If we're on OS X, the user hasn't specifically
   // requested a different browser, we can try opening
   // Chrome with AppleScript. This lets us reuse an
   // existing tab when possible instead of creating a new one.
   const shouldTryOpenChromeWithAppleScript =
-    process.platform === 'darwin' && (typeof browser !== 'string' || browser === OSX_CHROME);
+    process.platform === 'darwin' &&
+    (typeof browser !== 'string' || browser === OSX_CHROME);
 
   if (shouldTryOpenChromeWithAppleScript) {
     try {
       // Try our best to reuse existing tab
       // on OS X Google Chrome with AppleScript
       execSync('ps cax | grep "Google Chrome"');
-      execSync('osascript open-chrome.applescript "' + encodeURI(url) + '"', {
+      execSync('osascript openChrome.applescript "' + encodeURI(url) + '"', {
         cwd: __dirname,
-        stdio: 'ignore'
+        stdio: 'ignore',
       });
       return true;
     } catch (err) {
-      options.ui.writeLine('ERRRR', err);
       // Ignore errors.
     }
   }
@@ -92,7 +88,7 @@ function startBrowserProcess(browser, url, options) {
   // Another special case: on OS X, check if BROWSER has been set to "open".
   // In this case, instead of passing `open` to `opn` (which won't work),
   // just ignore it (thus ensuring the intended behavior, i.e. opening the system browser):
-  // https://github.com/facebookincubator/create-react-app/pull/1690#issuecomment-283518768
+  // https://github.com/facebook/create-react-app/pull/1690#issuecomment-283518768
   if (process.platform === 'darwin' && browser === 'open') {
     browser = undefined;
   }
@@ -100,7 +96,8 @@ function startBrowserProcess(browser, url, options) {
   // Fallback to opn
   // (It will always open new tab)
   try {
-    opn(url, { app: browser }).catch(() => {}); // Prevent `unhandledRejection` error.
+    var options = { app: browser };
+    opn(url, options).catch(() => {}); // Prevent `unhandledRejection` error.
     return true;
   } catch (err) {
     return false;
@@ -111,27 +108,16 @@ function startBrowserProcess(browser, url, options) {
  * Reads the BROWSER evironment variable and decides what to do with it. Returns
  * true if it opened a browser or ran a node.js script, otherwise false.
  */
-function openBrowser(url, optionalOptions) {
-  const env = getBrowserEnv();
-  const options = Object.assign(
-    {
-      ui: {
-        writeLine() {
-          return console.log.apply(console, arguments);
-        }
-      }
-    },
-    optionalOptions
-  );
-
-  switch (env.action) {
+function openBrowser(url) {
+  const { action, value } = getBrowserEnv();
+  switch (action) {
     case Actions.NONE:
       // Special case: BROWSER="none" will prevent opening completely.
       return false;
     case Actions.SCRIPT:
-      return executeNodeScript(env.value, url, options);
+      return executeNodeScript(value, url);
     case Actions.BROWSER:
-      return startBrowserProcess(env.value, url, options);
+      return startBrowserProcess(value, url);
     default:
       throw new Error('Not implemented.');
   }

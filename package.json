@@ -3,7 +3,8 @@
   "version": "0.5.1",
   "description": "Opens ember-cli app in system's default browser after ember serve.",
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "open-browser"
   ],
   "license": "MIT",
   "author": {
@@ -13,10 +14,10 @@
   "repository": "git@github.com:jasonmit/ember-open-browser.git",
   "scripts": {},
   "dependencies": {
-    "chalk": "^2.0.1",
+    "chalk": "^2.3.2",
     "clean-base-url": "^1.0.0",
-    "cross-spawn": "^5.1.0",
-    "opn": "^5.1.0"
+    "cross-spawn": "^6.0.5",
+    "opn": "^5.2.0"
   },
   "engines": {
     "node": ">= 4"
