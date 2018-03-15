@@ -2,7 +2,7 @@
 
 [![npm Version][npm-badge]][npm]
 
-A small addon that opens an ember-cli application, using the systems default web browser, after an initial build via `ember s`.
+A small addon that opens an ember-cli application, using the systems default web browser, after an initial build via `ember serve`.
 
 This is only made possible by prior work within `create-react-app`.
 
